@@ -1,16 +1,16 @@
 {
-  "name": "manter-pista-abqm",
+  "name": "rect-redux-boilerplate-fabric",
   "version": "1.0.0",
-  "description": "telas de manter pista da abqm",
+  "description": "boilerplate office fabric ui",
   "main": "index.js",
   "author": "Brunno Bettini",
   "license": "MIT",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "webpack": "webpack ",
     "compile": "set NODE_ENV=development&&npm run webpack",
     "compile:prod": "set NODE_ENV=production&&npm run webpack",
-    "browser": "set NODE_ENV=development&&npm run webpack&&http-server ./www/ -i --cors -c-1 -o"
+    "browser": "set NODE_ENV=development&&npm run webpack&&http-server ./www/ -i --cors -c-1 -o",
+    "browser:prod": "set NODE_ENV=development&&npm run webpack&&http-server ./www/ -i --cors -c-1 -o"
   },
   "dependencies": {
     "axios": "^0.17.1",
@@ -21,6 +21,9 @@
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-flexbox-grid": "^2.0.0",
+    "react-grid-layout": "^0.16.2",
+    "react-responsive": "^4.0.3",
     "react-redux": "^5.0.6",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
