@@ -1,103 +1,88 @@
-import React, {PropTypes as T} from 'react'
-import {Breadcrumb, IBreadcrumbItem} from 'office-ui-fabric-react/lib/Breadcrumb'
-import {CommandBar} from 'office-ui-fabric-react/lib/CommandBar'
-import {IContextualMenuItem} from 'office-ui-fabric-react/lib/ContextualMenu'
-import {MarqueeSelection} from 'office-ui-fabric-react/lib/MarqueeSelection'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { DefaultButton } from 'office-ui-fabric-react/lib/Button';
+import { TextField } from 'office-ui-fabric-react/lib/TextField';
+
+import { showMenuAction, changeTextAction } from '../actions/templateActions';
 import {
-    Selection,
-    SelectionMode,
-    SelectionZone,
-} from 'office-ui-fabric-react/lib/utilities/selection'
-import {Check} from 'office-ui-fabric-react/lib/Check'
-//import {identity, createListItems} from '../utils/'
-//import {menuItems as defaultMenuItems, farMenuItems as defaultFarMenuItems} from './items.js'
-//import '../_styles/Content.css'
+    DocumentCard,
+    DocumentCardPreview,
+    DocumentCardTitle,
+    DocumentCardActivity
+} from 'office-ui-fabric-react/lib/DocumentCard';
+import { INavLinkGroup } from 'office-ui-fabric-react/lib/Nav';
 
 class Content extends React.Component {
     constructor() {
-        super()
-        this.state = {
-            items:[{name:'oi'}, {name:'tchau'}] ,
-            selection: new Selection({onSelectionChanged: this._onSelectionChanged}),
-            selectionMode: SelectionMode.multiple,
-            canSelect: 'all',
-        }
-        this.state.selection.setItems(this.state.items, false)
+        super();
     }
+    static propTypes = {
+        dispatch: PropTypes.func.isRequired,
+        textValue: PropTypes.string.isRequired
+    };
 
-    componentDidMount() {
-        this._hasMounted = true
-    }
+    getTextValidation = (a, b) => {
+        window.console.log(a);
+        window.console.log(b);
+        return 'erro';
+    };
 
-    _onSelectionChanged = () => {
-        if (this._hasMounted) this.forceUpdate()
-    }
-
-    /*
-
-    <CommandBar isSearchBoxVisible={true}
-                            searchPlaceholderText="Search..."
-                            items={menuItems}
-                            farItems={farMenuItems}
-                />
+    textChanged = (newText) => {
+        this.props.dispatch(changeTextAction(newText));
+    };
 
 
-     */
+    showMenu = () => {
+        this.props.dispatch(showMenuAction());
+    };
 
     render() {
-        /*, menuItems, farMenuItems*/
-        const {breadcrumbs, maxBreadcrumbs} = this.props
-        const {items, selection, selectionMode} = this.state
+        const { textValue } = this.props;
+        /* , menuItems, farMenuItems */
+
         return (
             <div className="container">
-                <Breadcrumb className="breadcrumbs" items={breadcrumbs}
-                            maxDisplayedItems={maxBreadcrumbs}
-                />
-
-                <div className="selection">
-                    <MarqueeSelection selection={selection} isEnabled={selectionMode === SelectionMode.multiple}>
-                        <SelectionZone selection={selection}
-                                       selectionMode={selectionMode}
-                                       onItemInvoked={item => alert(item)}>
-                            {items.map((item, index) => (
-                                <div key={index} className="selection-item" data-selection-index={index}>
-                                    {(selectionMode !== SelectionMode.none) && (
-                                        <span className="check" data-selection-toggle={true}>
-                  <Check checked={selection.isIndexSelected(index)} />
-                </span>
-                                    )}
-                                    <span className="name">{item.name}</span>
-                                </div>
-                            ))}
-                        </SelectionZone>
-                    </MarqueeSelection>
+                <div>
+                    teste conteudo
+                    <DefaultButton
+                        description="Opens the Sample Panel"
+                        onClick={this.showMenu}
+                        text="Open Panel"
+                    />
+                </div>
+                <div>
+                    <TextField
+                        label="Descricao do Campo"
+                        value={textValue}
+                        prefix="https://"
+                        suffix=".com"
+                        iconProps={{ iconName: 'Calendar' }}
+                        onChanged={this.textChanged}
+                        validateOnFocusOut
+                        onGetErrorMessage={this.getTextValidation}
+                    />
                 </div>
             </div>
-        )
+        );
     }
 }
 
-Content.propTypes = {
-    items: T.arrayOf(T.shape(IBreadcrumbItem)),
-    menuItems: T.arrayOf(T.shape(IContextualMenuItem)),
-    farMenuItems: T.arrayOf(T.shape(IContextualMenuItem)),
-    maxBreadcrumbs: T.number
-    /*, menuItems, farMenuItems*/
-}
 
-Content.defaultProps = {
-    maxBreadcrumbs: 3,
-    breadcrumbs: [
-        {text: 'Files', 'key': 'Files', onClick: identity},
-        {text: 'This is folder 1', 'key': 'f1', onClick: identity},
-        {text: 'This is folder 2', 'key': 'f2', onClick: identity},
-        {text: 'This is folder 3', 'key': 'f3', onClick: identity},
-        {text: 'This is folder 4', 'key': 'f4', onClick: identity},
-        {text: 'Home', 'key': 'f5', onClick: identity},
-    ]
-    /*,
-    menuItems: defaultMenuItems,
-    farMenuItems: defaultFarMenuItems,*/
-}
+const mapStateToProps = (state) => {
+    const {
+        dispatch,
+        loggedUser,
+        loggedUserPass,
+        textValue
+    } = state;
 
-export default Content
+    return {
+        dispatch,
+        loggedUser,
+        loggedUserPass,
+        textValue
+    };
+};
+
+export default connect(mapStateToProps)(Content);

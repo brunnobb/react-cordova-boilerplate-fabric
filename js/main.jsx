@@ -1,14 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Switch, Route } from 'react-router-dom';
+import { initializeIcons } from 'office-ui-fabric-react/lib/Icons';
 import { Provider } from 'react-redux';
 import store from 'store2';
 import createHistory from 'history/createHashHistory';
 import { ConnectedRouter, routerMiddleware } from 'react-router-redux';
+import { loadTheme } from 'office-ui-fabric-react/lib/Styling';
+
 import Template from './components/TemplateComponent.jsx';
 import ManterPista from './components/ManterPista.jsx';
 
 import configureStore from './store/configureStore';
+
 
 let preloadedState = {};
 let loggedUser;
@@ -26,12 +30,22 @@ if (typeof (Storage) !== 'undefined') {
 }
 
 
+initializeIcons(/* optional base url */);
+
+loadTheme({
+    palette: {
+        themePrimary: 'red'
+    }
+});
+
 // Create a history of your choosing (we're using a browser history in this case)
 const history = createHistory();
 // Build the middleware for intercepting and dispatching navigation actions
 const rMiddleware = routerMiddleware(history);
 
+
 const storeInstance = configureStore(preloadedState, rMiddleware);
+
 
 ReactDOM.render(
     (

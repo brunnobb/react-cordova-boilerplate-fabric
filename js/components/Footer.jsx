@@ -1,6 +1,6 @@
-import React from 'react'
-import {Link} from 'office-ui-fabric-react/lib/Link'
-//import '../_styles/Footer.css'
+import React from 'react';
+import { Link } from 'office-ui-fabric-react/lib/Link';
+// import '../_styles/Footer.css'
 
 const Footer = () => (
     <div className="footer-container">
@@ -11,6 +11,6 @@ const Footer = () => (
         {' by '}
         <Link href="https://github.com/guzmonne">Guzmán Monné {'<@guzmonne>'}</Link>
     </div>
-)
+);
 
-export default Footer
+export default Footer;
