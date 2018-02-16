@@ -39,6 +39,9 @@ module.exports = {
             }, {
                 from: './static',
                 to: './static'
+            }, {
+                from: './node_modules/@uifabric/icons/fonts/',
+                to: './static'
             }])
 
     ] : [
@@ -59,6 +62,9 @@ module.exports = {
             to: './img'
         }, {
             from: './static',
+            to: './static'
+        }, {
+            from: './node_modules/@uifabric/icons/fonts/',
             to: './static'
         }])
     ],

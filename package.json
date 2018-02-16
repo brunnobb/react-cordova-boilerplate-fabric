@@ -13,6 +13,8 @@
     "browser:prod": "set NODE_ENV=development&&npm run webpack&&http-server ./www/ -i --cors -c-1 -o"
   },
   "dependencies": {
+    "@uifabric/icons": "^5.4.2",
+    "@uifabric/styling": "^5.18.0",
     "axios": "^0.17.1",
     "history": "^4.7.2",
     "lodash": "^4.17.4",
